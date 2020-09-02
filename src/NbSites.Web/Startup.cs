@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Demo.Libs;
+using Demo.Libs.MultiTenants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +52,11 @@ namespace NbSites.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // This adds the required middleware to the ROOT CONTAINER and is required for multi-tenancy to work.
+            services.AddAutofacMultitenantRequestServices();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -86,6 +91,7 @@ namespace NbSites.Web
         {
             builder.RegisterType<HelloService>().As<IHelloService>();
             builder.RegisterType<EmptyService>().SingleInstance().AsSelf();
+            builder.RegisterType<TenantContextService>().As<ITenantContextService>().InstancePerLifetimeScope().AsSelf();
         }
     }
 }

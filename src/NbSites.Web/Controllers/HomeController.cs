@@ -8,5 +8,10 @@ namespace NbSites.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Render(string id)
+        {
+            return View(id);
+        }
     }
 }

@@ -17,4 +17,5 @@
 
 ## change list
 
+- 20200902 add multi tenant demo
 - 20200902 init projects
