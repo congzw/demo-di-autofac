@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 
 namespace Demo.Libs.MultiTenants
 {
@@ -40,11 +39,6 @@ namespace Demo.Libs.MultiTenants
             }
 
             return null;
-        }
-
-        public IList<object> GetAllTenantIds()
-        {
-            return new List<object>() { "1", "2" };
         }
     }
 }

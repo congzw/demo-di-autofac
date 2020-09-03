@@ -1,18 +1,12 @@
 ﻿using Autofac;
 using Demo.Libs.Foos;
-using Demo.Libs.MultiTenants;
-using Demo.Libs.MultiThemes;
-using NbSites.Web.Boots;
 
-namespace NbSites.Web
+namespace NbSites.Web.Boots
 {
     public class FooModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ThemeContextService>().As<IThemeContextService>();
-            builder.RegisterType<TenantContextService>().As<ITenantContextService>();
-
             builder.RegisterType<FooService>().As<IFooService>().AsSelf().SingleInstance().Keyed<IFooService>("");
             builder.RegisterType<Foo1Service>().As<IFooService>().AsSelf().SingleInstance().Keyed<IFooService>("foo1");
             builder.RegisterType<Foo2Service>().As<IFooService>().AsSelf().SingleInstance().Keyed<IFooService>("foo2");

@@ -17,5 +17,6 @@
 
 ## change list
 
+- 20200903 add switch context service demo(theme and tenant)
 - 20200902 add multi tenant demo
 - 20200902 init projects

@@ -1,6 +1,21 @@
-﻿@using Demo.Libs.Foos
-@inject IFooService Foo
+﻿@using Demo.Libs.Bars
+@inject IBarService Bar
 <h2>@this.Path</h2>
 <hr />
-<p>@Foo.InstanceId</p>
-<p>@Foo.ToString()</p>
+
+<ul>
+    <li>
+        <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="">Tenants Default</a>
+    </li>
+    <li>
+        <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="1">Tenants 1</a>
+    </li>
+    <li>
+        <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="2">Tenants 2</a>
+    </li>
+    <li>
+        <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="not-exist">Tenants not-exist</a>
+    </li>
+</ul>
+<p>@Bar.InstanceId</p>
+<p>@Bar.ToString()</p>

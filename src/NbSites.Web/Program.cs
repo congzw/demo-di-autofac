@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using NbSites.Web.Boots;
 
 namespace NbSites.Web
 {
@@ -12,12 +13,10 @@ namespace NbSites.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-
-            //AddAutofac() is a convenience method for
-            //services.AddSingleton<IServiceProviderFactory<ContainerBuilder>>(new AutofacServiceProviderFactory())
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseMyAutofac();
+                //.UseMyAutofac()
+                .UseMyAutofacMultiTenant();
         }
     }
 }
