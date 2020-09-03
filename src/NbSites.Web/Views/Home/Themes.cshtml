@@ -1,0 +1,9 @@
+﻿@using Demo.Libs.Foos
+@using Demo.Libs.MultiThemes
+@inject IThemeContextService themeContextService
+@inject IFooService Foo
+<h2>@this.Path</h2>
+<hr />
+<p>@themeContextService.GetCurrentTheme()</p>
+<p>@Foo.InstanceId</p>
+<p>@Foo.ToString()</p>

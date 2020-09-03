@@ -1,0 +1,10 @@
+﻿@using Demo.Libs.Foos
+@inject IFooService Foo
+<h2>@this.Path</h2>
+<hr />
+<ul>
+    <partial name="_ContextTest"/>
+</ul>
+<hr />
+<p>@Foo.InstanceId</p>
+<p>@Foo.ToString()</p>

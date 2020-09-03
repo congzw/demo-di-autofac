@@ -5,26 +5,17 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="">
-        <ul>
-            <li>
-                <a asp-controller="Home" asp-action="Render" asp-route-id="Index">Index</a>
-            </li>
-            <li>
-                <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants">Tenants Default</a>
-            </li>
-            <li>
-                <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="1">Tenants-1</a>
-            </li>
-            <li>
-                <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="2">Tenants-2</a>
-            </li>
-            <li>
-                <a asp-controller="Home" asp-action="Render" asp-route-id="Tenants" asp-route-tenant="not-exist">Tenants-not-exist</a>
-            </li>
-        </ul>
-        <hr />
-        @RenderBody()
-    </div>
+<div class="">
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Render" asp-route-id="Index">Index</a>
+        </li>
+        <li>
+            <a asp-controller="Home" asp-action="Render" asp-route-id="ContextServices">ContextServices</a>
+        </li>
+    </ul>
+    <hr/>
+    @RenderBody()
+</div>
 </body>
 </html>

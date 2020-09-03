@@ -1,0 +1,104 @@
+﻿@using Demo.Libs.Foos
+@using Demo.Libs.MultiTenants
+@using Demo.Libs.MultiThemes
+@inject IFooService Foo
+@inject ITenantContextService Tenant
+@inject IThemeContextService Theme
+@{
+    var themes = new[] { "", "a", "b", "c", "not-exist" };
+    var tenants = new[] { "", "1", "2", "3", "not-exist" };
+
+    //? + ? => foo
+    //? + a => foo1
+    //? + b => foo2
+    //? + c => foo3
+    //? + not-exist => foo
+
+    //1 + ? => foo1
+    //1 + a => foo1
+    //1 + b => foo1
+    //1 + c => foo1
+    //1 + not-exist => foo1
+
+    //2 + ? => foo2
+    //2 + a => foo2
+    //2 + b => foo2
+    //2 + c => foo2
+    //2 + not-exist => foo2
+
+
+    //not-exist + ? => foo
+    //not-exist + a => foo1
+    //not-exist + b => foo2
+    //not-exist + c => foo3
+    //not-exist + not-exist => foo
+
+
+    var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+    results.Add("+", "foo");
+    results.Add("+a", "foo1");
+    results.Add("+b", "foo2");
+    results.Add("+c", "foo3");
+    results.Add("+not-exist", "foo");
+
+    results.Add("1+", "foo1");
+    results.Add("1+a", "foo1");
+    results.Add("1+b", "foo1");
+    results.Add("1+c", "foo1");
+    results.Add("1+not-exist", "foo1");
+
+    results.Add("2+", "foo2");
+    results.Add("2+a", "foo2");
+    results.Add("2+b", "foo2");
+    results.Add("2+c", "foo2");
+    results.Add("2+not-exist", "foo2");
+
+
+    results.Add("not-exist+", "foo");
+    results.Add("not-exist+a", "foo1");
+    results.Add("not-exist+b", "foo2");
+    results.Add("not-exist+c", "foo3");
+    results.Add("not-exist+not-exist", "foo");
+
+    var currentTenant = string.Empty;
+    var currentTenantId = Tenant.GetCurrentTenantId();
+    if (currentTenantId != null)
+    {
+        currentTenant = currentTenantId.ToString();
+    }
+    var currentTheme = Theme.GetCurrentTheme();
+    var currentServiceName = Foo.GetType().Name.Replace("Service", "").ToLower();
+}
+@foreach (var tenant in tenants)
+{
+    foreach (var theme in themes)
+    {
+        var hasIt = results.TryGetValue(tenant + "+" + theme, out var theResult);
+        var theResultFix = hasIt ? theResult : "Unknown";
+        <li>
+            <a asp-controller="Home"
+               asp-action="Render"
+               asp-route-id="ContextServices"
+               asp-route-tenant="@tenant"
+               asp-route-theme="@theme">
+                Tenants[@tenant] - Themes[@theme] =? @theResultFix =>
+                @if (hasIt)
+                {
+                    if (currentTenant.Equals(tenant, StringComparison.OrdinalIgnoreCase) && currentTheme.Equals(theme, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <span>
+                            @(currentServiceName == results[tenant + "+" + theme] ? "OK" : "")
+                        </span>
+                    }
+                }
+                else
+                {
+                    <span>
+                        Try?
+                    </span>
+                }
+            </a>
+        </li>
+    }
+}

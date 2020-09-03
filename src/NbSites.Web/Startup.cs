@@ -54,15 +54,15 @@ namespace NbSites.Web
         {
             services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            // This adds the required middleware to the ROOT CONTAINER and is required for multi-tenancy to work.
-            services.AddAutofacMultitenantRequestServices();
+            
+            //// This adds the required middleware to the ROOT CONTAINER and is required for multi-tenancy to work.
+            //services.AddAutofacMultitenantRequestServices();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            // Don't build the container; that gets done for you by the factory.
             builder.RegisterModule(new MyApplicationModule());
+            builder.RegisterModule(new FooModule());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
